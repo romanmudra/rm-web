@@ -3,87 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Návrhy Loga RM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <title>Návrhy Loga RM - Tenké a 3D</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #050505;
             color: white;
             font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            min-height: 100vh;
+        }
+
+        .logo-container {
+            background: rgba(25, 25, 25, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px 20px;
+            border-radius: 20px;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            gap: 60px;
+            transition: transform 0.3s, background 0.3s;
         }
 
-        .logo-container {
-            background: rgba(25, 25, 25, 0.6);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            width: 300px;
+        .logo-container:hover {
+            transform: translateY(-5px);
+            background: rgba(35, 35, 35, 0.6);
         }
 
         .logo-container p {
-            margin-top: 20px;
-            color: #a0a0a0;
-            font-size: 14px;
+            margin-top: 25px;
+            color: #888;
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            font-weight: 300;
         }
 
-        /* Společný gradient pro SVG */
         svg {
             display: block;
-            margin: 0 auto;
+            overflow: visible;
         }
     </style>
 </head>
 <body>
 
-    <!-- SPOLEČNÉ DEFINICE BAREV PRO VŠECHNA LOGA -->
+    <!-- SPOLEČNÉ DEFINICE (Gradienty a Stíny) -->
     <svg width="0" height="0" style="position:absolute;">
         <defs>
-            <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#4facfe" />
                 <stop offset="100%" stop-color="#00f2fe" />
             </linearGradient>
+            
+            <linearGradient id="neon-grad-alt" x1="100%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="#4facfe" />
+                <stop offset="100%" stop-color="#00f2fe" />
+            </linearGradient>
+
+            <!-- 3D Stíny -->
+            <filter id="shadow-3d" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="3" dy="5" stdDeviation="3" flood-color="#000000" flood-opacity="0.9"/>
+            </filter>
+            
+            <filter id="shadow-light" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="2" dy="2" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.7"/>
+            </filter>
+
+            <!-- Zářivý stín -->
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#00f2fe" flood-opacity="0.5"/>
+            </filter>
         </defs>
     </svg>
 
-    <!-- NÁVRH 1: Plynulá linie -->
+    <!-- NÁVRH 1: Levitující překryv -->
     <div class="logo-container">
-        <svg width="80" height="50" viewBox="0 0 60 50">
-            <!-- Písmena R a M nakreslená jedním elegantním neonovým tahem -->
-            <path d="M10,45 V10 h12 a10,10 0 0,1 0,20 h-12 M20,30 L30,45 V10 L40,30 L50,10 V45"
-                  fill="none" stroke="url(#neon-grad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg width="100" height="60" viewBox="0 0 100 60">
+            <text x="15" y="45" font-weight="200" font-size="48" fill="#ffffff">R</text>
+            <text x="38" y="52" font-weight="300" font-size="48" fill="url(#neon-grad)" filter="url(#shadow-3d)">M</text>
         </svg>
-        <p>1. Plynulá linie</p>
+        <p>1. Levitující překryv</p>
     </div>
 
-    <!-- NÁVRH 2: Překrývající se masiv -->
+    <!-- NÁVRH 2: Sdílená osa (Minimalismus) -->
     <div class="logo-container">
-        <svg width="100" height="50" viewBox="0 0 100 50">
-            <!-- R je čistě bílé, M je neonové a těsně navazují -->
-            <text x="10" y="42" font-family="'Montserrat', sans-serif" font-weight="900" font-size="46" fill="#ffffff" letter-spacing="-5">R</text>
-            <text x="42" y="42" font-family="'Montserrat', sans-serif" font-weight="900" font-size="46" fill="url(#neon-grad)">M</text>
+        <svg width="100" height="60" viewBox="0 0 100 60">
+            <!-- R a M sdílejí jednu vertikální linku -->
+            <path d="M 25 50 V 15 H 45 A 12 12 0 0 1 45 35 H 25 M 35 35 L 50 50 V 15 L 65 35 L 80 15 V 50" 
+                  fill="none" stroke="url(#neon-grad)" stroke-width="1.5" filter="url(#shadow-light)" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <p>2. Překrývající se masiv</p>
+        <p>2. Sdílená osa</p>
     </div>
 
-    <!-- NÁVRH 3: Technický obrys -->
+    <!-- NÁVRH 3: Prostorový posun (Vrstvení) -->
     <div class="logo-container">
-        <svg width="110" height="50" viewBox="0 0 110 50">
-            <!-- R je vyplněné neonem, M je pouze čistý tenký obrys zakončený svítící tečkou -->
-            <text x="10" y="42" font-family="'Montserrat', sans-serif" font-weight="900" font-size="46" fill="url(#neon-grad)">R</text>
-            <text x="45" y="42" font-family="'Montserrat', sans-serif" font-weight="900" font-size="46" fill="none" stroke="#ffffff" stroke-width="2">M</text>
-            <circle cx="96" cy="40" r="5" fill="#00f2fe" />
+        <svg width="100" height="60" viewBox="0 0 100 60">
+            <text x="22" y="42" font-weight="200" font-size="42" fill="none" stroke="#555" stroke-width="1">RM</text>
+            <text x="25" y="45" font-weight="300" font-size="42" fill="url(#neon-grad)" filter="url(#shadow-light)">RM</text>
         </svg>
-        <p>3. Technický obrys</p>
+        <p>3. Prostorový posun</p>
+    </div>
+
+    <!-- NÁVRH 4: Propletená křivka -->
+    <div class="logo-container">
+        <svg width="100" height="60" viewBox="0 0 100 60">
+            <path d="M 20 45 V 20 H 40 A 10 10 0 0 1 40 40 H 20" fill="none" stroke="#ffffff" stroke-width="2" filter="url(#shadow-light)"/>
+            <!-- M vystupuje zepředu -->
+            <path d="M 33 40 L 45 50 V 25 L 60 40 L 75 25 V 50" fill="none" stroke="url(#neon-grad)" stroke-width="2.5" filter="url(#shadow-3d)" stroke-linecap="round"/>
+        </svg>
+        <p>4. Propletená křivka</p>
+    </div>
+
+    <!-- NÁVRH 5: Průsečík -->
+    <div class="logo-container">
+        <svg width="100" height="60" viewBox="0 0 100 60">
+            <text x="25" y="45" font-weight="300" font-size="44" fill="rgba(255,255,255,0.7)">R</text>
+            <!-- Jemný výřez pomocí okrajového stínu -->
+            <text x="42" y="45" font-weight="300" font-size="44" fill="url(#neon-grad)" filter="url(#shadow-3d)">M</text>
+        </svg>
+        <p>5. Průsečík</p>
+    </div>
+
+    <!-- NÁVRH 6: Nekonečná stuha 3D -->
+    <div class="logo-container">
+        <svg width="100" height="60" viewBox="0 0 100 60">
+            <!-- Jeden tah představující 3D skládanou stuhu -->
+            <path d="M 20 50 V 20 H 40 L 30 35 L 45 50 M 45 50 L 55 20 L 70 35 L 85 20 V 50" 
+                  fill="none" stroke="url(#neon-grad)" stroke-width="2" filter="url(#glow)" stroke-linecap="square" stroke-linejoin="miter"/>
+        </svg>
+        <p>6. Nekonečná stuha</p>
+    </div>
+
+    <!-- NÁVRH 7: Kaskádové stínování -->
+    <div class="logo-container">
+        <svg width="100" height="60" viewBox="0 0 100 60">
+            <text x="15" y="40" font-weight="200" font-size="40" fill="#ffffff" filter="url(#shadow-light)">R</text>
+            <text x="35" y="50" font-weight="300" font-size="46" fill="url(#neon-grad-alt)" filter="url(#shadow-3d)">M</text>
+        </svg>
+        <p>7. Kaskádové stínování</p>
+    </div>
+
+    <!-- NÁVRH 8: Architektonický spoj -->
+    <div class="logo-container">
+        <svg width="100" height="60" viewBox="0 0 100 60">
+            <!-- Noha z R plynule přechází do M s hloubkovým stínem -->
+            <path d="M 20 45 V 15 H 35 A 10 10 0 0 1 35 35 H 20" fill="none" stroke="#fff" stroke-width="1.5" filter="url(#shadow-light)"/>
+            <path d="M 28 35 L 45 15 V 45" fill="none" stroke="url(#neon-grad)" stroke-width="2" filter="url(#shadow-3d)"/>
+            <path d="M 45 15 L 60 30 L 75 15 V 45" fill="none" stroke="url(#neon-grad)" stroke-width="1.5"/>
+        </svg>
+        <p>8. Architektonický spoj</p>
+    </div>
+
+    <!-- NÁVRH 9: Technologický průsvit -->
+    <div class="logo-container">
+        <svg width="100" height="60" viewBox="0 0 100 60">
+            <text x="20" y="45" font-weight="400" font-size="44" fill="none" stroke="#ffffff" stroke-width="1">R</text>
+            <!-- Plné M překrývající obrysové R -->
+            <text x="40" y="48" font-weight="200" font-size="44" fill="url(#neon-grad)" filter="url(#shadow-3d)">M</text>
+        </svg>
+        <p>9. Technologický průsvit</p>
+    </div>
+
+    <!-- NÁVRH 10: Extrémní minimalismus 3D -->
+    <div class="logo-container">
+        <svg width="110" height="60" viewBox="0 0 110 60">
+            <text x="25" y="45" font-weight="200" font-size="40" fill="#ffffff" letter-spacing="-8">R</text>
+            <text x="44" y="45" font-weight="200" font-size="40" fill="url(#neon-grad)" filter="url(#shadow-3d)">M</text>
+            <!-- Tečka dodávající moderní agenturní vzhled -->
+            <circle cx="82" cy="42" r="3" fill="#00f2fe" filter="url(#glow)"/>
+        </svg>
+        <p>10. Extrémní minimalismus</p>
     </div>
 
 </body>
