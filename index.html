@@ -3,182 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tvorba webů Plzeň | Moderní weby pro firmy</title>
+    <title>Moderní Weby Plzeň | Tvorba & Analytika</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* ZÁKLADNÍ STYLY PRO TVŮJ NOVÝ WEB */
+        :root {
+            --bg-color: #050505;
+            --accent-color: #00f2fe;
+            --accent-gradient: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            --card-bg: rgba(25, 25, 25, 0.6);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         body {
-            background-color: #f8fafc;
-            color: #0f172a;
-            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
         }
 
-        /* HLAVIČKA A NAVIGACE */
+        /* POZADÍ S GLOW EFEKTEM */
+        .background-glow {
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(79,172,254,0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+        }
+
+        /* HLAVIČKA */
         header {
-            background-color: #1e293b;
-            color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
             padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        header .logo {
+        .logo {
+            font-weight: 900;
             font-size: 24px;
-            font-weight: bold;
-            color: #38bdf8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 40px;
         }
 
         nav a {
-            color: white;
+            color: var(--text-main);
             text-decoration: none;
+            font-size: 14px;
             font-weight: 500;
-            transition: color 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
         }
 
         nav a:hover {
-            color: #38bdf8;
+            color: var(--accent-color);
         }
 
-        /* HLAVNÍ BANNER (HERO SEKC) */
+        /* HERO SEKCE */
         .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            padding: 100px 50px;
-            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            position: relative;
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: 4vw;
+            font-weight: 900;
+            line-height: 1.1;
             margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
         .hero p {
-            font-size: 20px;
-            color: #cbd5e1;
-            margin-bottom: 40px;
+            font-size: 1.2rem;
+            color: var(--text-muted);
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 40px;
+            font-weight: 300;
         }
 
-        .cta-button {
-            background-color: #2563eb;
-            color: white;
-            padding: 15px 30px;
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--accent-gradient);
+            color: #000;
             text-decoration: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: background 0.2s;
+            font-weight: 700;
+            border-radius: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .cta-button:hover {
-            background-color: #1d4ed8;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
         }
 
         /* SLUŽBY */
         .services {
-            padding: 80px 50px;
+            padding: 100px 10%;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 60px;
             text-align: center;
         }
 
-        .services h2 {
-            font-size: 36px;
-            margin-bottom: 50px;
-        }
-
-        .service-grid {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .service-card {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            width: 300px;
-            text-align: center;
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
         }
 
         .service-card h3 {
+            font-size: 1.5rem;
             margin-bottom: 15px;
-            color: #2563eb;
+            color: var(--accent-color);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* PATIČKA */
         footer {
-            background: #0f172a;
-            color: #94a3b8;
             text-align: center;
-            padding: 30px;
-            margin-top: 50px;
+            padding: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVIGACE -->
+    <div class="background-glow"></div>
+
     <header>
-        <div class="logo">Tvorba Webů</div>
+        <div class="logo">Web<span>Studio</span></div>
         <nav>
             <ul>
                 <li><a href="#sluzby">Služby</a></li>
                 <li><a href="#reference">Reference</a></li>
-                <li><a href="#cenik">Ceník</a></li>
                 <li><a href="#kontakt">Kontakt</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- HLAVNÍ BANNER -->
     <section class="hero">
-        <h1>Vydělává váš web, nebo jen existuje?</h1>
-        <p>Tvořím moderní a rychlé webové stránky pro lokální firmy. Získejte více zákazníků díky webu, který je měřitelný a bez starostí.</p>
-        <a href="#kontakt" class="cta-button">Chci nezávaznou konzultaci</a>
+        <h1>Vizuál, který<br>přitáhne pozornost.</h1>
+        <p>Tvořím špičkové webové prezentace a datovou analytiku pro podnikatele v Plzni. Od moderního designu po reálné výsledky.</p>
+        <a href="#kontakt" class="btn">Zahájit projekt</a>
     </section>
 
-    <!-- SLUŽBY -->
     <section id="sluzby" class="services">
-        <h2>S čím vám pomohu</h2>
-        <div class="service-grid">
-            
+        <h2 class="section-title">Co nabízím</h2>
+        <div class="services-grid">
             <div class="service-card">
-                <h3>Weby na klíč</h3>
-                <p>Od návrhu, přes programování až po spuštění. Responzivní design pro mobily je samozřejmostí.</p>
+                <h3>Kódování na míru</h3>
+                <p>Žádné pomalé šablony. Tvořím rychlé a responzivní weby přímo v HTML/CSS/JS, které se okamžitě načítají na každém zařízení.</p>
             </div>
-
             <div class="service-card">
-                <h3>Dlouhodobá správa</h3>
-                <p>Postarám se o hosting, aktualizace a bezpečnost, abyste vy mohli v klidu podnikat.</p>
+                <h3>Datová Analytika</h3>
+                <p>Mějte dokonalý přehled. Nasadím pokročilé měření, díky kterému zjistíte, co přesně vaši zákazníci na webu dělají.</p>
             </div>
-
             <div class="service-card">
-                <h3>Měření návštěvnosti</h3>
-                <p>Nasazení analytiky. Každý měsíc přesně uvidíte, kolik zákazníků vám web reálně přináší.</p>
+                <h3>Správa a Hosting</h3>
+                <p>O technické zázemí se postarám. Zajistím spolehlivý chod, aktualizace a maximální zabezpečení vaší prezentace.</p>
             </div>
-
         </div>
     </section>
 
-    <!-- PATIČKA -->
     <footer>
-        <p>&copy; 2026 Tvorba Webů Plzeň | Vytvořeno s pečlivostí.</p>
+        &copy; 2026 WebStudio Plzeň | Navrženo pro výkon.
     </footer>
 
 </body>
