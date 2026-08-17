@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Návrhy Loga RM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #050505;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            gap: 60px;
+        }
+
+        .logo-container {
+            background: rgba(25, 25, 25, 0.6);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            width: 300px;
+        }
+
+        .logo-container p {
+            margin-top: 20px;
+            color: #a0a0a0;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Společný gradient pro SVG */
+        svg {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SPOLEČNÉ DEFINICE BAREV PRO VŠECHNA LOGA -->
+    <svg width="0" height="0" style="position:absolute;">
+        <defs>
+            <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#4facfe" />
+                <stop offset="100%" stop-color="#00f2fe" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- NÁVRH 1: Plynulá linie -->
+    <div class="logo-container">
+        <svg width="80" height="50" viewBox="0 0 60 50">
+            <!-- Písmena R a M nakreslená jedním elegantním neonovým tahem -->
+            <path d="M10,45 V10 h12 a10,10 0 0,1 0,20 h-12 M20,30 L30,45 V10 L40,30 L50,10 V45"
+                  fill="none" stroke="url(#neon-grad)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p>1. Plynulá linie</p>
+    </div>
+
+    <!-- NÁVRH 2: Překrývající se masiv -->
+    <div class="logo-container">
+        <svg width="100" height="50" viewBox="0 0 100 50">
+            <!-- R je čistě bílé, M je neonové a těsně navazují -->
+            <text x="10" y="42" font-family="'Montserrat', sans-serif" font-weight="900" font-size="46" fill="#ffffff" letter-spacing="-5">R</text>
+            <text x="42" y="42" font-family="'Montserrat', sans-serif" font-weight="900" font-size="46" fill="url(#neon-grad)">M</text>
+        </svg>
+        <p>2. Překrývající se masiv</p>
+    </div>
+
+    <!-- NÁVRH 3: Technický obrys -->
+    <div class="logo-container">
+        <svg width="110" height="50" viewBox="0 0 110 50">
+            <!-- R je vyplněné neonem, M je pouze čistý tenký obrys zakončený svítící tečkou -->
+            <text x="10" y="42" font-family="'Montserrat', sans-serif" font-weight="900" font-size="46" fill="url(#neon-grad)">R</text>
+            <text x="45" y="42" font-family="'Montserrat', sans-serif" font-weight="900" font-size="46" fill="none" stroke="#ffffff" stroke-width="2">M</text>
+            <circle cx="96" cy="40" r="5" fill="#00f2fe" />
+        </svg>
+        <p>3. Technický obrys</p>
+    </div>
+
+</body>
+</html>
