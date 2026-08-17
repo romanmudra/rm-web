@@ -1,1 +1,185 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tvorba webů Plzeň | Moderní weby pro firmy</title>
+    <style>
+        /* ZÁKLADNÍ STYLY PRO TVŮJ NOVÝ WEB */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+
+        /* HLAVIČKA A NAVIGACE */
+        header {
+            background-color: #1e293b;
+            color: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        /* HLAVNÍ BANNER (HERO SEKC) */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 100px 50px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            background-color: #2563eb;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .cta-button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* SLUŽBY */
+        .services {
+            padding: 80px 50px;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .service-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .service-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            width: 300px;
+            text-align: center;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: #2563eb;
+        }
+
+        /* PATIČKA */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGACE -->
+    <header>
+        <div class="logo">Tvorba Webů</div>
+        <nav>
+            <ul>
+                <li><a href="#sluzby">Služby</a></li>
+                <li><a href="#reference">Reference</a></li>
+                <li><a href="#cenik">Ceník</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HLAVNÍ BANNER -->
+    <section class="hero">
+        <h1>Vydělává váš web, nebo jen existuje?</h1>
+        <p>Tvořím moderní a rychlé webové stránky pro lokální firmy. Získejte více zákazníků díky webu, který je měřitelný a bez starostí.</p>
+        <a href="#kontakt" class="cta-button">Chci nezávaznou konzultaci</a>
+    </section>
+
+    <!-- SLUŽBY -->
+    <section id="sluzby" class="services">
+        <h2>S čím vám pomohu</h2>
+        <div class="service-grid">
+            
+            <div class="service-card">
+                <h3>Weby na klíč</h3>
+                <p>Od návrhu, přes programování až po spuštění. Responzivní design pro mobily je samozřejmostí.</p>
+            </div>
+
+            <div class="service-card">
+                <h3>Dlouhodobá správa</h3>
+                <p>Postarám se o hosting, aktualizace a bezpečnost, abyste vy mohli v klidu podnikat.</p>
+            </div>
+
+            <div class="service-card">
+                <h3>Měření návštěvnosti</h3>
+                <p>Nasazení analytiky. Každý měsíc přesně uvidíte, kolik zákazníků vám web reálně přináší.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- PATIČKA -->
+    <footer>
+        <p>&copy; 2026 Tvorba Webů Plzeň | Vytvořeno s pečlivostí.</p>
+    </footer>
+
+</body>
+</html>
