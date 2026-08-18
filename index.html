@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roman Mudra | Tvorba webových stránek</title>
+    <title>Roman Mudra | Tvorba webů & Analytika Plzeň</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
     
     <!-- FAVICON -->
@@ -478,53 +478,74 @@
             color: var(--accent-color);
         }
 
-        /* PATIČKA */
+        /* NOVÁ PATIČKA - MODERNÍ ASYMETRICKÝ DESIGN */
         footer {
             background: #020202;
             border-top: 1px solid var(--card-border);
             padding: 80px 10% 40px 10%;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
         }
 
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
             gap: 40px;
-            margin-bottom: 60px;
         }
 
-        .footer-col h5 {
-            font-size: 1rem;
-            margin-bottom: 20px;
+        .footer-brand h3 {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav-col h5 {
+            font-size: 0.9rem;
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 15px;
         }
 
-        .footer-links {
+        .footer-nav-col ul {
             list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
+        .footer-nav-col a {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.3s;
         }
 
-        .footer-links a:hover {
+        .footer-nav-col a:hover {
             color: var(--accent-color);
         }
 
         .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
             border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 30px;
-            text-align: center;
             color: #555;
             font-size: 0.85rem;
+            gap: 20px;
         }
 
         /* RESPONSIVITA */
@@ -532,8 +553,9 @@
             header { padding: 15px 20px; }
             nav { display: none; }
             .hero h1 { font-size: 2.5rem; }
-            .package-body, .reference-card, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
+            .package-body, .reference-card, .contact-grid, .footer-top { grid-template-columns: 1fr; flex-direction: column; }
             .form-row { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -563,7 +585,7 @@
                     <text x="15" y="45" font-family="'Montserrat', sans-serif" font-weight="200" font-size="48" fill="#ffffff">R</text>
                     <text x="38" y="52" font-family="'Montserrat', sans-serif" font-weight="300" font-size="48" fill="url(#neon-grad)" filter="url(#shadow-3d)">M</text>
                 </svg>
-                <!-- STUPŇOVITÝ TEXT (NÁVRH 13) -->
+                <!-- STUPŇOVITÝ TEXT -->
                 <div style="display: flex; flex-direction: column; line-height: 1.2;">
                     <span style="font-weight: 200; font-size: 14px; letter-spacing: 4px; color: #fff;">ROMAN</span>
                     <span class="text-gradient" style="font-weight: 500; font-size: 14px; letter-spacing: 4px; margin-left: 15px;">MUDRA</span>
@@ -573,42 +595,42 @@
         <nav>
             <ul>
                 <li><a href="#sluzby">Služby</a></li>
-                <li><a href="#cenik">Ceník</a></li>
-                <li><a href="#reference">Reference</a></li>
+                <li><a href="#cenik">Balíček</a></li>
+                <li><a href="#reference">Ukázky</a></li>
                 <li><a href="#kontakt">Kontakt</a></li>
             </ul>
-            <a href="#kontakt" class="btn">Poptat web</a>
+            <a href="#kontakt" class="btn">Chci web</a>
         </nav>
     </header>
 
     <!-- HERO SEKCE -->
     <section class="hero">
-        <h1 class="reveal-item">Weby na míru,<br><span class="text-gradient">které prodávají</span></h1>
-        <p class="reveal-item delay-1">Vytvořím vám rychlou a přehlednou stránku, která přitáhne nové zákazníky, a kompletně se postarám o její bezproblémový chod v Plzni i celém Česku.</p>
+        <h1 class="reveal-item">Digitální prezentace, <br><span class="text-gradient">co generují zisk</span></h1>
+        <p class="reveal-item delay-1">Postavím pro vás superrychlý a moderní web. Žádné zbytečnosti, jen čistý kód a funkční design, který přesvědčí vaše zákazníky k akci.</p>
         <div class="hero-buttons reveal-item delay-2">
-            <a href="#kontakt" class="btn">Poptat web &rarr;</a>
-            <a href="#reference" class="btn btn-outline">Ukázky prací</a>
+            <a href="#kontakt" class="btn">Nezávazná poptávka &rarr;</a>
+            <a href="#reference" class="btn btn-outline">Prohlédnout práci</a>
         </div>
     </section>
 
     <!-- SEKCE CO NABÍZÍM -->
     <section id="sluzby">
         <div class="section-header reveal-item">
-            <h2 class="section-title">Co nabízím</h2>
-            <p class="section-subtitle">Žádné poloviční řešení. Čistý kód, moderní vizuál a reálné výsledky.</p>
+            <h2 class="section-title">Jak nad vývojem <span class="text-gradient">přemýšlím</span></h2>
+            <p class="section-subtitle">Stavím weby od nuly. Bez pomalých vizuálních editorů a zbytečných pluginů.</p>
         </div>
         <div class="services-grid">
             <div class="service-card reveal-item">
-                <h3>Kódování na míru</h3>
-                <p>Žádné pomalé šablony. Tvořím rychlé a responzivní weby přímo v čistém kódu, které se okamžitě načítají na každém zařízení.</p>
+                <h3>Vývoj na míru</h3>
+                <p>Každý řádek kódu má svůj smysl. Tvořím weby s perfektním skóre v rychlosti, které Google miluje a návštěvníci neopouští kvůli čekání.</p>
             </div>
             <div class="service-card reveal-item delay-1">
-                <h3>Datová Analytika</h3>
-                <p>Mějte dokonalý přehled. Nasadím pokročilé měření, díky kterému přesně zjistíte, odkud vaši zákazníci přicházejí.</p>
+                <h3>Data a konverze</h3>
+                <p>Hezký web nestačí. Propojím vaši stránku s analytikou tak, abyste jasně viděli, co vaši zákazníci dělají a kde je prostor pro zlepšení.</p>
             </div>
             <div class="service-card reveal-item delay-2">
-                <h3>Správa & Hosting</h3>
-                <p>O technické zázemí se postarám. Zajistím spolehlivý chod, aktualizace, doménu i SSL zabezpečení vaší prezentace.</p>
+                <h3>Dlouhodobý partner</h3>
+                <p>Spuštěním to nekončí. Hlídám bezpečnost, řeším updaty a starám se o plynulý chod hostingu, abyste vy mohli v klidu řešit svůj byznys.</p>
             </div>
         </div>
     </section>
@@ -616,47 +638,47 @@
     <!-- SEKCE CENÍK / BALÍČEK -->
     <section id="cenik" style="background: rgba(10, 10, 10, 0.4);">
         <div class="section-header reveal-item">
-            <h2 class="section-title">Web <span class="text-gradient">bez starostí</span></h2>
-            <p class="section-subtitle">Kompletní balíček pro vaše podnikání na jednom místě.</p>
+            <h2 class="section-title">Webový balíček <span class="text-gradient">na klíč</span></h2>
+            <p class="section-subtitle">Žádné skryté poplatky. Jasně daný rozsah práce i cena.</p>
         </div>
 
         <div class="package-container reveal-item delay-1">
             <div class="package-header">
                 <div class="package-title">
-                    <h3>Tvorba webu + Roční správa</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Vše, co potřebujete pro úspěch na internetu.</p>
+                    <h3>Kompletní vývoj & Servis</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Ideální řešení pro firmy, co chtějí moderní prezentaci bez starostí.</p>
                 </div>
                 <div class="package-price-badge">
-                    <div class="price-main">od 9 900 Kč</div>
-                    <div class="price-sub">+ správa: od 1 800 Kč / rok</div>
+                    <div class="price-main">od 12 500 Kč</div>
+                    <div class="price-sub">následný servis 1 500 Kč / rok</div>
                 </div>
             </div>
 
             <div class="package-body">
                 <div class="package-col">
-                    <h4><span>1</span> Jednorázová realizace</h4>
+                    <h4><span>1</span> Fáze: Návrh a spuštění</h4>
                     <ul class="checklist">
-                        <li>Návrh struktury a moderní dark design</li>
-                        <li>Čistý, rychlý a bezpečný kód</li>
-                        <li>Základní SEO optimalizace pro vyhledávače</li>
-                        <li>100% responzivita pro telefony a tablety</li>
+                        <li>Originální dark-mode design podle vaší značky</li>
+                        <li>Optimalizovaný kód pro bleskové načítání</li>
+                        <li>Základní technické SEO pro vyhledávače</li>
+                        <li>Perfektní zobrazení na mobilech i tabletech</li>
                     </ul>
                 </div>
                 <div class="package-col">
-                    <h4><span>2</span> Následná roční péče</h4>
+                    <h4><span>2</span> Fáze: Údržba a bezpečnost</h4>
                     <ul class="checklist">
-                        <li>Pomoc s hostingem a nasazením webu</li>
-                        <li>Technický dohled a pravidelné aktualizace</li>
-                        <li>Drobné úpravy textů a fotek v průběhu roku</li>
-                        <li>Měření návštěvnosti a analytika</li>
+                        <li>Správa spolehlivého hostingu a domény</li>
+                        <li>Pravidelné bezpečnostní zálohy</li>
+                        <li>Drobné úpravy textů a fotek na vyžádání</li>
+                        <li>Sledování chodu a technická podpora</li>
                     </ul>
                 </div>
             </div>
 
             <div class="package-footer">
-                <p style="margin-bottom: 20px; font-weight: 500;">Zní to jako plán, který hledáte?</p>
-                <a href="#kontakt" class="btn">Poptat kompletní web &rarr;</a>
-                <p style="color: #666; font-size: 0.8rem; margin-top: 12px;">Konzultace a úvodní nacenění je zcela zdarma.</p>
+                <p style="margin-bottom: 20px; font-weight: 500;">Dává vám tento postup smysl?</p>
+                <a href="#kontakt" class="btn">Získat přesnou kalkulaci &rarr;</a>
+                <p style="color: #666; font-size: 0.8rem; margin-top: 12px;">Úvodní popovídání u kávy (nebo online) je na mě.</p>
             </div>
         </div>
     </section>
@@ -664,25 +686,25 @@
     <!-- SEKCE REFERENCE -->
     <section id="reference">
         <div class="section-header reveal-item">
-            <h2 class="section-title">Výsledky, které <span class="text-gradient">mluví za vše</span></h2>
-            <p class="section-subtitle">Prohlédněte si nedávnou ukázku mé práce.</p>
+            <h2 class="section-title">Ukázky z <span class="text-gradient">praxe</span></h2>
+            <p class="section-subtitle">Podívejte se, jak pomáhám lokálním firmám růst v digitálním světě.</p>
         </div>
 
         <div class="reference-card reveal-item delay-1">
             <div>
-                <span class="text-gradient" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Autoservis & Diagnostika</span>
+                <span class="text-gradient" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Webová prezentace</span>
                 <h3 style="font-size: 2rem; margin: 10px 0;">HOS Autoservis</h3>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Návrh a kódování webové prezentace pro autoservis. Důraz byl kladen na bleskovou rychlost načítání na mobilech a snadné objednání zákazníků.</p>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">Kompletní vývoj od nuly. Důraz byl kladen na čistou prezentaci služeb a maximálně zjednodušený proces pro objednání zákazníků z mobilního telefonu.</p>
                 
                 <div class="quote-box">
-                    „Roman připravil web přesně podle našich představ. Stránky jsou rychlé, přehledné a zákazníci se na nich ihned orientují.“
+                    „Spolupráce s Romanem byla skvělá. Chtěli jsme moderní vizitku pro náš servis a výsledek předčil očekávání. Zákazníci si chválí, že web bleskově naběhne a hned ví, kam zavolat.“
                     <div style="margin-top: 8px; font-weight: 700; font-style: normal; font-size: 0.85rem; color: #fff;">— Majitel, HOS Autoservis</div>
                 </div>
             </div>
 
             <div class="reference-img-mock">
                 <div style="font-size: 3rem; font-weight: 900; color: rgba(255,255,255,0.1);">HOS</div>
-                <p style="margin-top: 10px; font-size: 0.85rem;">Prezentace projektu HOS Autoservis</p>
+                <p style="margin-top: 10px; font-size: 0.85rem;">Náhled projektu HOS Autoservis</p>
             </div>
         </div>
     </section>
@@ -690,8 +712,8 @@
     <!-- SEKCE KONTAKT -->
     <section id="kontakt" style="background: rgba(10, 10, 10, 0.5);">
         <div class="section-header reveal-item">
-            <h2 class="section-title">Pojďme probrat <span class="text-gradient">váš projekt</span></h2>
-            <p class="section-subtitle">Vyplňte krátký formulář níže. Ozvu se vám zpět s nezávazným návrhem.</p>
+            <h2 class="section-title">Nastartujme vaši <span class="text-gradient">online přítomnost</span></h2>
+            <p class="section-subtitle">Napište mi, co máte v plánu. Rád s vámi projdu technické detaily i realizaci.</p>
         </div>
 
         <div class="contact-grid">
@@ -700,35 +722,35 @@
                 <form action="#" method="POST">
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Jméno a příjmení / Firma *</label>
+                            <label>Vaše Jméno / Společnost *</label>
                             <input type="text" placeholder="Jan Novák" required>
                         </div>
                         <div class="form-group">
-                            <label>E-mail *</label>
+                            <label>Kontaktní e-mail *</label>
                             <input type="email" placeholder="novak@firma.cz" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Telefon *</label>
+                            <label>Telefonní číslo *</label>
                             <input type="tel" placeholder="+420 700 000 000" required>
                         </div>
                         <div class="form-group">
-                            <label>Typ projektu *</label>
+                            <label>Co budeme tvořit? *</label>
                             <select required>
                                 <option value="" disabled selected>Vyberte možnost...</option>
-                                <option value="novy-web">Nový web na míru</option>
-                                <option value="redesign">Redesign stávajícího webu</option>
-                                <option value="analytika">Datová analytika a měření</option>
+                                <option value="novy-web">Zcela nový web</option>
+                                <option value="redesign">Překopání starého webu</option>
+                                <option value="analytika">Nastavení analytiky</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label>Představa o rozpočtu</label>
+                        <label>Odhadovaný rozpočet</label>
                         <select>
-                            <option value="" disabled selected>Vyberte rozpočet...</option>
+                            <option value="" disabled selected>Vyberte hrubý rámec...</option>
                             <option value="10-20">10 000 Kč – 20 000 Kč</option>
                             <option value="20-40">20 000 Kč – 40 000 Kč</option>
                             <option value="40+">40 000 Kč a více</option>
@@ -736,74 +758,80 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Stručně popište, co od webu očekáváte *</label>
-                        <textarea rows="4" placeholder="Chci získat více poptávek / Potřebuji moderní vizitku pro firmu v Plzni..." required></textarea>
+                        <label>O čem projekt bude? *</label>
+                        <textarea rows="4" placeholder="Potřebuji moderní vizitku pro svou firmu v Plzni. Mělo by to působit profesionálně..." required></textarea>
                     </div>
 
-                    <button type="submit" class="btn" style="width: 100%;">Odeslat nezávaznou poptávku &rarr;</button>
+                    <button type="submit" class="btn" style="width: 100%;">Odeslat zprávu &rarr;</button>
                 </form>
             </div>
 
             <!-- POSTRANNÍ PANELY -->
             <div class="contact-sidebar reveal-item delay-1">
                 <div class="info-card">
-                    <h4>Přímý kontakt</h4>
+                    <h4>Pojďme se spojit</h4>
                     <a href="mailto:info@romanmudra.cz" class="contact-item">
                         <span>📧</span> info@romanmudra.cz
                     </a>
                     <a href="tel:+420000000000" class="contact-item">
                         <span>📞</span> +420 000 000 000
                     </a>
-                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--card-border); font-size: 0.85rem; color: #777;">
-                        Roman Mudra<br>
-                        IČO: Na vyžádání
-                    </div>
                 </div>
 
                 <div class="info-card">
-                    <h4>Kde působím?</h4>
+                    <h4>Základna v Plzni</h4>
                     <p style="color: var(--text-muted); font-size: 0.9rem;">
-                        Jsem z <strong style="color: #fff;">Plzně</strong>. Pro klienty z Plzeňského kraje se velmi rád potkám osobně. Se zbytkem republiky funguji naprosto bez problémů online.
+                        Působíte v <strong style="color: #fff;">Plzeňském kraji</strong>? Rád s vámi detaily proberu osobně u dobré kávy. Vývoj pro klienty ze zbytku ČR pak řeším efektivně online.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PATIČKA -->
+    <!-- NOVÁ MODERNÍ PATIČKA -->
     <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <div style="font-weight: 900; font-size: 1.2rem; color: #fff; margin-bottom: 10px;">ROMAN MUDRA</div>
-                <p style="color: var(--text-muted); font-size: 0.85rem;">Přetvářím vaše nápady do čistého, rychlého a bezpečného kódu s důrazem na výsledky.</p>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h3>ROMAN <span class="text-gradient">MUDRA</span></h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 300px;">
+                    Moderní webový vývoj s důrazem na čistý kód, rychlost a reálné výsledky.
+                </p>
             </div>
             
-            <div class="footer-col">
-                <h5>Rychlé odkazy</h5>
-                <ul class="footer-links">
-                    <li><a href="#sluzby">Služby</a></li>
-                    <li><a href="#cenik">Ceník</a></li>
-                    <li><a href="#reference">Reference</a></li>
-                    <li><a href="#kontakt">Kontakt</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>Užitečné</h5>
-                <ul class="footer-links">
-                    <li><a href="#">Ochrana osobních údajů</a></li>
-                    <li><a href="#">Obchodní podmínky</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h5>Lokalita</h5>
-                <p style="color: var(--text-muted); font-size: 0.85rem;">Plzeň & Česko<br>Osobní i online konzultace</p>
+            <div class="footer-nav">
+                <div class="footer-nav-col">
+                    <h5>Navigace</h5>
+                    <ul>
+                        <li><a href="#sluzby">Služby</a></li>
+                        <li><a href="#cenik">Balíček na klíč</a></li>
+                        <li><a href="#reference">Ukázky prací</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-nav-col">
+                    <h5>Informace</h5>
+                    <ul>
+                        <li><a href="#">Ochrana soukromí</a></li>
+                        <li><a href="#">Obchodní podmínky</a></li>
+                        <li><a href="#kontakt">Napište mi</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-nav-col">
+                    <h5>Sítě</h5>
+                    <ul>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">GitHub</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <div class="footer-bottom">
-            &copy; 2026 Roman Mudra. Všechna práva vyhrazena. Navrženo pro rychlost a výkon.
+            <div>&copy; 2026 Roman Mudra. Vyrobeno v Plzni.</div>
+            <div>
+                IČO: Na vyžádání | <a href="mailto:info@romanmudra.cz" style="color: var(--accent-color); text-decoration: none;">info@romanmudra.cz</a>
+            </div>
         </div>
     </footer>
 
