@@ -18,6 +18,12 @@
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
         }
+        /* Pomocná třída pro obarvení textu gradientem */
+        .text-gradient {
+        background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        }
 
         * {
             margin: 0;
@@ -186,6 +192,23 @@
             color: var(--text-muted);
             font-size: 0.9rem;
         }
+                /* VÝCHOZÍ STAV: Prvek je neviditelný a posunutý o 30px dolů */
+        .reveal-item {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        /* KONEČNÝ STAV: Prvek je viditelný a na své původní pozici */
+        .reveal-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+        }
+
+        /* ZPOŽDĚNÍ: Pro vytvoření kaskádového efektu (např. u karet služeb) */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.3s; }
+        .delay-3 { transition-delay: 0.5s; }
     </style>
 </head>
 <body>
@@ -207,14 +230,32 @@
 
     <header>
         <div class="logo">
-            <a href="#">
-                <!-- TVÉ OSOBNÍ LOGO RM -->
-                <svg width="100" height="60" viewBox="0 0 100 60">
-                    <text x="15" y="45" font-family="'Montserrat', sans-serif" font-weight="200" font-size="48" fill="#ffffff">R</text>
-                    <text x="38" y="52" font-family="'Montserrat', sans-serif" font-weight="300" font-size="48" fill="url(#neon-grad)" filter="url(#shadow-3d)">M</text>
-                </svg>
-            </a>
+    <a href="#">
+        
+        <!-- 1. ČÁST: GRAFICKÉ INICIÁLY (R a M) -->
+        <svg width="75" height="60" viewBox="0 0 100 60">
+            <!-- Písmeno R (bílé, tenké) -->
+            <text x="15" y="45" font-family="'Montserrat', sans-serif" font-weight="200" font-size="48" fill="#ffffff">R</text>
+            <!-- Písmeno M (s odkazem na gradient a stín z Kroku 2) -->
+            <text x="38" y="52" font-family="'Montserrat', sans-serif" font-weight="300" font-size="48" fill="url(#neon-grad)" filter="url(#shadow-3d)">M</text>
+        </svg>
+        
+        <!-- 2. ČÁST: STUPŇOVITÝ TEXTOVÝ BLOK -->
+        <!-- display: flex a flex-direction: column zajistí, že slova budou pod sebou -->
+        <div style="display: flex; flex-direction: column; line-height: 1.2;">
+            
+            <!-- Horní řádek (ROMAN) -->
+            <span style="font-weight: 200; font-size: 14px; letter-spacing: 4px; color: #fff;">ROMAN</span>
+            
+            <!-- Spodní řádek (MUDRA) -->
+            <!-- Všimni si "margin-left: 15px" - to dělá to stupňovité odsazení! -->
+            <!-- A třída "text-gradient" to obarví podle Kroku 1 -->
+            <span class="text-gradient" style="font-weight: 500; font-size: 14px; letter-spacing: 4px; margin-left: 15px;">MUDRA</span>
+            
         </div>
+        
+    </a>
+</div>
         <nav>
             <ul>
                 <li><a href="#sluzby">Služby</a></li>
@@ -225,23 +266,23 @@
     </header>
 
     <section class="hero">
-        <h1>Vizuál, který<br>přitáhne pozornost.</h1>
-        <p>Tvořím weby a datovou analytiku pro firmy a podnikatele.</p>
-        <a href="#kontakt" class="btn">Zahájit projekt</a>
+        <h1 class="reveal-item">Vizuál, který<br>přitáhne pozornost.</h1>
+        <p class="reveal-item delay-1">Tvořím weby a datovou analytiku pro firmy a podnikatele.</p>
+        <a href="#kontakt" class="btn class="reveal-item delay-2">Zahájit projekt</a>
     </section>
 
     <section id="sluzby" class="services">
         <h2 class="section-title">Co nabízím</h2>
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card reveal-item">
                 <h3>Kódování na míru</h3>
                 <p>Žádné pomalé šablony. Tvořím rychlé a responzivní weby přímo v HTML/CSS/JS, které se okamžitě načítají na každém zařízení.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card reveal-item delay-1">
                 <h3>Datová Analytika</h3>
                 <p>Mějte dokonalý přehled. Nasadím měření, díky kterému zjistíte, co přesně vaši zákazníci na webu dělají a jak se webu daří.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card reveal-item delay-2">
                 <h3>Správa a Hosting</h3>
                 <p>O technické zázemí se postarám. Zajistím spolehlivý chod, aktualizace a maximální zabezpečení prezentace Vaší firmy.</p>
             </div>
@@ -251,6 +292,34 @@
     <footer>
         &copy; 2026 Roman Mudra    IČO:    Bez cookies a trackerů
     </footer>
+<!-- JAVASCRIPT PRO ANIMACE PŘI SCROLLOVÁNÍ -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Najdeme všechny prvky, které mají třídu .reveal-item
+            const reveals = document.querySelectorAll('.reveal-item');
 
+            // 2. Nastavíme 'pozorovatele'
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Pokud je prvek v zorném poli (viewportu)
+                    if (entry.isIntersecting) {
+                        // Přidáme mu třídu 'visible', čímž spustíme CSS animaci
+                        entry.target.classList.add('visible');
+                        
+                        // Přestaneme ho sledovat (animace proběhne jen jednou)
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                // Spustí se ve chvíli, kdy je alespoň 15 % prvku viditelných na obrazovce
+                threshold: 0.15 
+            });
+
+            // 3. Řekneme pozorovateli, ať začne sledovat každý nalezený prvek
+            reveals.forEach(reveal => {
+                observer.observe(reveal);
+            });
+        });
+    </script>
 </body>
 </html>
