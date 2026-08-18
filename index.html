@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="cs" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,9 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'%3E%3Cdefs%3E%3ClinearGradient id='neon-grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234facfe'/%3E%3Cstop offset='100%25' stop-color='%2300f2fe'/%3E%3C/linearGradient%3E%3Cfilter id='shadow-3d' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeDropShadow dx='3' dy='5' stdDeviation='3' flood-color='%23000000' flood-opacity='0.9'/%3E%3C/filter%3E%3C/defs%3E%3Ctext x='15' y='45' font-family='sans-serif' font-weight='200' font-size='48' fill='%23ffffff'%3ER%3C/text%3E%3Ctext x='38' y='52' font-family='sans-serif' font-weight='300' font-size='48' fill='url(%23neon-grad)' filter='url(%23shadow-3d)'%3EM%3C/text%3E%3C/svg%3E">
 
     <style>
+        /* ==================================================
+           1. ZÁKLADNÍ PROMĚNNÉ (DARK MODE VÝCHOZÍ)
+           ================================================== */
         :root {
             --bg-color: #050505;
             --accent-color: #00f2fe;
@@ -18,6 +21,25 @@
             --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #ffffff;
             --text-muted: #a0a0a0;
+            --footer-bg: #020202;
+            --input-bg: rgba(10, 10, 10, 0.8);
+            --btn-text: #000000;
+        }
+
+        /* ==================================================
+           2. LIGHT MODE PROMĚNNÉ
+           ================================================== */
+        :root[data-theme="light"] {
+            --bg-color: #f4f6f8;
+            --accent-color: #0072ff;
+            --accent-gradient: linear-gradient(90deg, #0072ff 0%, #00c6ff 100%);
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(0, 0, 0, 0.08);
+            --text-main: #111111;
+            --text-muted: #555555;
+            --footer-bg: #e9ecef;
+            --input-bg: #ffffff;
+            --btn-text: #ffffff;
         }
 
         * {
@@ -28,19 +50,44 @@
             scroll-behavior: smooth;
         }
 
+        /* Aplikování plynulých přechodů pro změnu témat */
+        body, header, footer, .service-card, .package-container, .reference-card, .form-card, .info-card, .package-footer, .quote-box, input, select, textarea {
+            transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, fill 0.4s ease;
+        }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             overflow-x: hidden;
             line-height: 1.6;
+            position: relative;
         }
 
-        .text-gradient {
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* ==================================================
+           3. POZADÍ (KÓD + GLOW)
+           ================================================== */
+        /* Obrázek kódu na pozadí */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            opacity: 0.06;
+            z-index: -2;
+            pointer-events: none;
+            transition: filter 0.4s ease, opacity 0.4s ease;
         }
 
+        /* Změna pozadí pro světlý režim (inverze) */
+        :root[data-theme="light"] body::before {
+            filter: invert(1);
+            opacity: 0.04;
+        }
+
+        /* Barevný glow efekt */
         .background-glow {
             position: fixed;
             top: -20%;
@@ -52,23 +99,35 @@
             pointer-events: none;
         }
 
-        /* ANIMACE REVEAL */
+        :root[data-theme="light"] .background-glow {
+            background: radial-gradient(circle, rgba(0,114,255,0.08) 0%, rgba(255,255,255,0) 70%);
+        }
+
+        .text-gradient {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ==================================================
+           4. ANIMACE REVEAL
+           ================================================== */
         .reveal-item {
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-
         .reveal-item.visible {
             opacity: 1;
             transform: translateY(0);
         }
-
         .delay-1 { transition-delay: 0.15s; }
         .delay-2 { transition-delay: 0.3s; }
         .delay-3 { transition-delay: 0.45s; }
 
-        /* HLAVIČKA */
+        /* ==================================================
+           5. HLAVIČKA A NAVIGACE
+           ================================================== */
         header {
             position: fixed;
             top: 0;
@@ -83,6 +142,10 @@
             border-bottom: 1px solid var(--card-border);
         }
 
+        :root[data-theme="light"] header {
+            background: rgba(244, 246, 248, 0.85);
+        }
+
         .logo a {
             display: flex;
             align-items: center;
@@ -90,43 +153,72 @@
             gap: 15px;
             transition: transform 0.3s;
         }
-
         .logo a:hover {
             transform: scale(1.02);
         }
-
         .logo svg {
             display: block;
             overflow: visible;
         }
+        
+        /* Dynamické barvy loga pro Light mode */
+        .logo-r { fill: #ffffff; }
+        .logo-text-roman { color: #ffffff; font-weight: 200; font-size: 14px; letter-spacing: 4px; }
+        
+        :root[data-theme="light"] .logo-r { fill: #111111; }
+        :root[data-theme="light"] .logo-text-roman { color: #111111; }
 
         nav {
             display: flex;
             align-items: center;
             gap: 30px;
         }
-
         nav ul {
             list-style: none;
             display: flex;
             gap: 30px;
         }
-
-        nav a {
+        nav a.nav-link {
             color: var(--text-main);
             text-decoration: none;
             font-size: 13px;
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: color 0.3s;
         }
-
-        nav a:hover {
+        nav a.nav-link:hover {
             color: var(--accent-color);
         }
 
-        /* TLAČÍTKA */
+        /* PŘEPÍNAČ TÉMATU */
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s, border-color 0.3s;
+        }
+        .theme-toggle-btn:hover {
+            background: var(--card-bg);
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+        }
+        .theme-toggle-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* ==================================================
+           6. TLAČÍTKA
+           ================================================== */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -134,7 +226,7 @@
             gap: 10px;
             padding: 14px 32px;
             background: var(--accent-gradient);
-            color: #000;
+            color: var(--btn-text);
             text-decoration: none;
             font-weight: 700;
             border-radius: 30px;
@@ -145,26 +237,29 @@
             border: none;
             cursor: pointer;
         }
-
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(0, 242, 254, 0.35);
         }
+        :root[data-theme="light"] .btn:hover {
+            box-shadow: 0 10px 25px rgba(0, 114, 255, 0.35);
+        }
 
         .btn-outline {
             background: transparent;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
         }
-
         .btn-outline:hover {
-            background: rgba(255,255,255,0.05);
+            background: var(--card-bg);
             border-color: var(--accent-color);
             color: var(--accent-color);
             box-shadow: none;
         }
 
-        /* HERO SEKCE */
+        /* ==================================================
+           7. HERO SEKCE & LAYOUT
+           ================================================== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -173,7 +268,6 @@
             align-items: flex-start;
             padding: 120px 10% 60px 10%;
         }
-
         .hero h1 {
             font-size: 3.8vw;
             font-weight: 900;
@@ -181,78 +275,81 @@
             margin-bottom: 24px;
             text-transform: uppercase;
         }
-
         .hero p {
             font-size: 1.15rem;
             color: var(--text-muted);
             max-width: 620px;
             margin-bottom: 40px;
-            font-weight: 300;
+            font-weight: 500;
         }
-
         .hero-buttons {
             display: flex;
             gap: 20px;
             flex-wrap: wrap;
         }
 
-        /* OBECNÉ SEKCE */
         section {
             padding: 100px 10%;
         }
-
         .section-header {
             text-align: center;
             max-width: 700px;
             margin: 0 auto 60px auto;
         }
-
         .section-title {
             font-size: 2.5rem;
             font-weight: 900;
             margin-bottom: 15px;
             text-transform: uppercase;
         }
-
         .section-subtitle {
             color: var(--text-muted);
             font-size: 1rem;
-            font-weight: 300;
+            font-weight: 500;
         }
 
-        /* SLUŽBY */
+        /* ==================================================
+           8. SLUŽBY
+           ================================================== */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
         }
-
         .service-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             padding: 40px 30px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
-            transition: transform 0.3s, border-color 0.3s;
+            transition: transform 0.3s, border-color 0.3s, background-color 0.4s;
         }
-
         .service-card:hover {
             transform: translateY(-8px);
             border-color: var(--accent-color);
         }
-
         .service-card h3 {
             font-size: 1.4rem;
             margin-bottom: 15px;
             color: var(--text-main);
         }
-
         .service-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
         }
 
-        /* BALÍČEK / CENÍK */
+        /* ==================================================
+           9. BALÍČEK / CENÍK
+           ================================================== */
+        .package-wrapper {
+            background: rgba(10, 10, 10, 0.4);
+            border-radius: 30px;
+            padding: 40px 0;
+        }
+        :root[data-theme="light"] .package-wrapper {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
         .package-container {
             max-width: 900px;
             margin: 0 auto;
@@ -262,7 +359,6 @@
             overflow: hidden;
             backdrop-filter: blur(12px);
         }
-
         .package-header {
             padding: 40px 40px 30px 40px;
             display: flex;
@@ -272,39 +368,33 @@
             gap: 20px;
             border-bottom: 1px solid var(--card-border);
         }
-
         .package-title h3 {
             font-size: 1.8rem;
             font-weight: 700;
             margin-bottom: 8px;
         }
-
         .package-price-badge {
-            background: rgba(0, 242, 254, 0.08);
-            border: 1px solid rgba(0, 242, 254, 0.3);
+            background: rgba(0, 114, 255, 0.08);
+            border: 1px solid rgba(0, 114, 255, 0.3);
             padding: 15px 25px;
             border-radius: 16px;
             text-align: right;
         }
-
         .price-main {
             font-size: 1.6rem;
             font-weight: 900;
-            color: #fff;
+            color: var(--text-main);
         }
-
         .price-sub {
             font-size: 0.85rem;
             color: var(--accent-color);
         }
-
         .package-body {
             padding: 40px;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 40px;
         }
-
         .package-col h4 {
             font-size: 1.1rem;
             margin-bottom: 20px;
@@ -312,10 +402,9 @@
             align-items: center;
             gap: 10px;
         }
-
         .package-col h4 span {
             background: var(--accent-gradient);
-            color: #000;
+            color: var(--btn-text);
             width: 24px;
             height: 24px;
             border-radius: 50%;
@@ -325,19 +414,17 @@
             font-size: 12px;
             font-weight: 900;
         }
-
         .checklist {
             list-style: none;
         }
-
         .checklist li {
             position: relative;
             padding-left: 28px;
             margin-bottom: 14px;
             color: var(--text-muted);
             font-size: 0.95rem;
+            font-weight: 500;
         }
-
         .checklist li::before {
             content: "✓";
             position: absolute;
@@ -345,15 +432,19 @@
             color: var(--accent-color);
             font-weight: 900;
         }
-
         .package-footer {
             background: rgba(15, 15, 15, 0.9);
             padding: 30px 40px;
             text-align: center;
             border-top: 1px solid var(--card-border);
         }
+        :root[data-theme="light"] .package-footer {
+            background: rgba(240, 240, 240, 0.9);
+        }
 
-        /* REFERENCE */
+        /* ==================================================
+           10. REFERENCE
+           ================================================== */
         .reference-card {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -364,7 +455,6 @@
             border-radius: 24px;
             padding: 40px;
         }
-
         .reference-img-mock {
             width: 100%;
             height: 320px;
@@ -375,9 +465,13 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
+            color: #777;
             position: relative;
             overflow: hidden;
+        }
+        :root[data-theme="light"] .reference-img-mock {
+            background: linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 100%);
+            color: #999;
         }
 
         .quote-box {
@@ -387,58 +481,77 @@
             margin-top: 25px;
             border-radius: 0 12px 12px 0;
             font-style: italic;
-            color: #ddd;
+            color: var(--text-muted);
             font-size: 0.95rem;
         }
+        :root[data-theme="light"] .quote-box {
+            background: rgba(0, 0, 0, 0.03);
+        }
+        .quote-author {
+            margin-top: 8px; 
+            font-weight: 700; 
+            font-style: normal; 
+            font-size: 0.85rem; 
+            color: #ffffff;
+        }
+        :root[data-theme="light"] .quote-author {
+            color: #111111;
+        }
 
-        /* KONTAKT S FORMULÁŘEM */
+        /* ==================================================
+           11. KONTAKT & FORMULÁŘ
+           ================================================== */
+        .contact-wrapper {
+            background: rgba(10, 10, 10, 0.5);
+            border-radius: 30px;
+            padding: 40px 0;
+        }
+        :root[data-theme="light"] .contact-wrapper {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
         .contact-grid {
             display: grid;
             grid-template-columns: 1.8fr 1fr;
             gap: 40px;
         }
-
         .form-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 24px;
             padding: 40px;
         }
-
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
         }
-
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 8px;
             margin-bottom: 20px;
         }
-
         .form-group label {
             font-size: 0.85rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-weight: 600;
         }
-
         .form-group input, 
         .form-group select, 
         .form-group textarea {
-            background: rgba(10, 10, 10, 0.8);
+            background: var(--input-bg);
             border: 1px solid var(--card-border);
             padding: 14px 18px;
             border-radius: 12px;
-            color: #fff;
+            color: var(--text-main);
             font-size: 0.95rem;
             outline: none;
-            transition: border-color 0.3s;
+            transition: border-color 0.3s, background-color 0.4s, color 0.4s;
         }
-
         .form-group input:focus, 
         .form-group select:focus, 
         .form-group textarea:focus {
@@ -450,20 +563,17 @@
             flex-direction: column;
             gap: 25px;
         }
-
         .info-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 20px;
             padding: 30px;
         }
-
         .info-card h4 {
             font-size: 1.2rem;
             margin-bottom: 15px;
-            color: #fff;
+            color: var(--text-main);
         }
-
         .contact-item {
             display: flex;
             align-items: center;
@@ -472,22 +582,30 @@
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
         }
-
         .contact-item:hover {
             color: var(--accent-color);
         }
+        .highlight-text {
+            color: #ffffff;
+        }
+        :root[data-theme="light"] .highlight-text {
+            color: #111111;
+        }
 
-        /* NOVÁ PATIČKA - MODERNÍ ASYMETRICKÝ DESIGN */
+        /* ==================================================
+           12. PATIČKA
+           ================================================== */
         footer {
-            background: #020202;
+            background: var(--footer-bg);
             border-top: 1px solid var(--card-border);
             padding: 80px 10% 40px 10%;
             display: flex;
             flex-direction: column;
             gap: 50px;
         }
-
         .footer-top {
             display: flex;
             justify-content: space-between;
@@ -495,63 +613,60 @@
             flex-wrap: wrap;
             gap: 40px;
         }
-
         .footer-brand h3 {
             font-size: 2rem;
             font-weight: 900;
             letter-spacing: 2px;
             margin-bottom: 10px;
-            color: #fff;
+            color: var(--text-main);
         }
-
         .footer-nav {
             display: flex;
             gap: 40px;
             flex-wrap: wrap;
         }
-
         .footer-nav-col h5 {
             font-size: 0.9rem;
-            color: #fff;
+            color: var(--text-main);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 15px;
         }
-
         .footer-nav-col ul {
             list-style: none;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
-
         .footer-nav-col a {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.9rem;
             transition: color 0.3s;
+            font-weight: 500;
         }
-
         .footer-nav-col a:hover {
             color: var(--accent-color);
         }
-
         .footer-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid var(--card-border);
             padding-top: 30px;
-            color: #555;
+            color: var(--text-muted);
             font-size: 0.85rem;
             gap: 20px;
+            font-weight: 500;
         }
 
-        /* RESPONSIVITA */
+        /* ==================================================
+           13. RESPONSIVITA
+           ================================================== */
         @media (max-width: 900px) {
             header { padding: 15px 20px; }
-            nav { display: none; }
+            nav { display: none; } /* Mobilní menu by vyžadovalo hamburger icon, pro ukázku schováno */
             .hero h1 { font-size: 2.5rem; }
             .package-body, .reference-card, .contact-grid, .footer-top { grid-template-columns: 1fr; flex-direction: column; }
             .form-row { grid-template-columns: 1fr; }
@@ -582,23 +697,44 @@
             <a href="#">
                 <!-- SVG LOGO RM -->
                 <svg width="75" height="60" viewBox="0 0 100 60">
-                    <text x="15" y="45" font-family="'Montserrat', sans-serif" font-weight="200" font-size="48" fill="#ffffff">R</text>
+                    <text class="logo-r" x="15" y="45" font-family="'Montserrat', sans-serif" font-weight="200" font-size="48">R</text>
                     <text x="38" y="52" font-family="'Montserrat', sans-serif" font-weight="300" font-size="48" fill="url(#neon-grad)" filter="url(#shadow-3d)">M</text>
                 </svg>
                 <!-- STUPŇOVITÝ TEXT -->
                 <div style="display: flex; flex-direction: column; line-height: 1.2;">
-                    <span style="font-weight: 200; font-size: 14px; letter-spacing: 4px; color: #fff;">ROMAN</span>
-                    <span class="text-gradient" style="font-weight: 500; font-size: 14px; letter-spacing: 4px; margin-left: 15px;">MUDRA</span>
+                    <span class="logo-text-roman">ROMAN</span>
+                    <span class="text-gradient" style="font-weight: 600; font-size: 14px; letter-spacing: 4px; margin-left: 15px;">MUDRA</span>
                 </div>
             </a>
         </div>
         <nav>
             <ul>
-                <li><a href="#sluzby">Služby</a></li>
-                <li><a href="#cenik">Balíček</a></li>
-                <li><a href="#reference">Ukázky</a></li>
-                <li><a href="#kontakt">Kontakt</a></li>
+                <li><a href="#sluzby" class="nav-link">Služby</a></li>
+                <li><a href="#cenik" class="nav-link">Balíček</a></li>
+                <li><a href="#reference" class="nav-link">Ukázky</a></li>
+                <li><a href="#kontakt" class="nav-link">Kontakt</a></li>
             </ul>
+            
+            <!-- TLAČÍTKO PRO PŘEPÍNÁNÍ TÉMATU -->
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Přepnout motiv">
+                <!-- Ikonka Měsíce (Dark Mode active) -->
+                <svg id="moon-icon" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+                <!-- Ikonka Slunce (Light Mode active) -->
+                <svg id="sun-icon" viewBox="0 0 24 24" style="display: none;">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+            </button>
+
             <a href="#kontakt" class="btn">Chci web</a>
         </nav>
     </header>
@@ -636,52 +772,54 @@
     </section>
 
     <!-- SEKCE CENÍK / BALÍČEK -->
-    <section id="cenik" style="background: rgba(10, 10, 10, 0.4);">
-        <div class="section-header reveal-item">
-            <h2 class="section-title">Webový balíček <span class="text-gradient">na klíč</span></h2>
-            <p class="section-subtitle">Žádné skryté poplatky. Jasně daný rozsah práce i cena.</p>
-        </div>
-
-        <div class="package-container reveal-item delay-1">
-            <div class="package-header">
-                <div class="package-title">
-                    <h3>Kompletní vývoj & Servis</h3>
-                    <p style="color: var(--text-muted); font-size: 0.95rem;">Ideální řešení pro firmy, co chtějí moderní prezentaci bez starostí.</p>
-                </div>
-                <div class="package-price-badge">
-                    <div class="price-main">od 12 500 Kč</div>
-                    <div class="price-sub">následný servis 1 500 Kč / rok</div>
-                </div>
+    <div class="package-wrapper">
+        <section id="cenik">
+            <div class="section-header reveal-item">
+                <h2 class="section-title">Webový balíček <span class="text-gradient">na klíč</span></h2>
+                <p class="section-subtitle">Žádné skryté poplatky. Jasně daný rozsah práce i cena.</p>
             </div>
 
-            <div class="package-body">
-                <div class="package-col">
-                    <h4><span>1</span> Fáze: Návrh a spuštění</h4>
-                    <ul class="checklist">
-                        <li>Originální dark-mode design podle vaší značky</li>
-                        <li>Optimalizovaný kód pro bleskové načítání</li>
-                        <li>Základní technické SEO pro vyhledávače</li>
-                        <li>Perfektní zobrazení na mobilech i tabletech</li>
-                    </ul>
+            <div class="package-container reveal-item delay-1">
+                <div class="package-header">
+                    <div class="package-title">
+                        <h3>Kompletní vývoj & Servis</h3>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; font-weight: 500;">Ideální řešení pro firmy, co chtějí moderní prezentaci bez starostí.</p>
+                    </div>
+                    <div class="package-price-badge">
+                        <div class="price-main">od 12 500 Kč</div>
+                        <div class="price-sub">následný servis 1 500 Kč / rok</div>
+                    </div>
                 </div>
-                <div class="package-col">
-                    <h4><span>2</span> Fáze: Údržba a bezpečnost</h4>
-                    <ul class="checklist">
-                        <li>Správa spolehlivého hostingu a domény</li>
-                        <li>Pravidelné bezpečnostní zálohy</li>
-                        <li>Drobné úpravy textů a fotek na vyžádání</li>
-                        <li>Sledování chodu a technická podpora</li>
-                    </ul>
-                </div>
-            </div>
 
-            <div class="package-footer">
-                <p style="margin-bottom: 20px; font-weight: 500;">Dává vám tento postup smysl?</p>
-                <a href="#kontakt" class="btn">Získat přesnou kalkulaci &rarr;</a>
-                <p style="color: #666; font-size: 0.8rem; margin-top: 12px;">Úvodní popovídání u kávy (nebo online) je na mě.</p>
+                <div class="package-body">
+                    <div class="package-col">
+                        <h4><span>1</span> Fáze: Návrh a spuštění</h4>
+                        <ul class="checklist">
+                            <li>Originální design podle vaší značky</li>
+                            <li>Optimalizovaný kód pro bleskové načítání</li>
+                            <li>Základní technické SEO pro vyhledávače</li>
+                            <li>Perfektní zobrazení na mobilech i tabletech</li>
+                        </ul>
+                    </div>
+                    <div class="package-col">
+                        <h4><span>2</span> Fáze: Údržba a bezpečnost</h4>
+                        <ul class="checklist">
+                            <li>Správa spolehlivého hostingu a domény</li>
+                            <li>Pravidelné bezpečnostní zálohy</li>
+                            <li>Drobné úpravy textů a fotek na vyžádání</li>
+                            <li>Sledování chodu a technická podpora</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="package-footer">
+                    <p style="margin-bottom: 20px; font-weight: 600;">Dává vám tento postup smysl?</p>
+                    <a href="#kontakt" class="btn">Získat přesnou kalkulaci &rarr;</a>
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 15px; font-weight: 500;">Úvodní popovídání u kávy (nebo online) je na mě.</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- SEKCE REFERENCE -->
     <section id="reference">
@@ -692,108 +830,110 @@
 
         <div class="reference-card reveal-item delay-1">
             <div>
-                <span class="text-gradient" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;">Webová prezentace</span>
-                <h3 style="font-size: 2rem; margin: 10px 0;">HOS Autoservis</h3>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">Kompletní vývoj od nuly. Důraz byl kladen na čistou prezentaci služeb a maximálně zjednodušený proces pro objednání zákazníků z mobilního telefonu.</p>
+                <span class="text-gradient" style="font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">Webová prezentace</span>
+                <h3 style="font-size: 2rem; margin: 10px 0; color: var(--text-main);">HOS Autoservis</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; font-weight: 500;">Kompletní vývoj od nuly. Důraz byl kladen na čistou prezentaci služeb a maximálně zjednodušený proces pro objednání zákazníků z mobilního telefonu.</p>
                 
                 <div class="quote-box">
                     „Spolupráce s Romanem byla skvělá. Chtěli jsme moderní vizitku pro náš servis a výsledek předčil očekávání. Zákazníci si chválí, že web bleskově naběhne a hned ví, kam zavolat.“
-                    <div style="margin-top: 8px; font-weight: 700; font-style: normal; font-size: 0.85rem; color: #fff;">— Majitel, HOS Autoservis</div>
+                    <div class="quote-author">— Majitel, HOS Autoservis</div>
                 </div>
             </div>
 
             <div class="reference-img-mock">
-                <div style="font-size: 3rem; font-weight: 900; color: rgba(255,255,255,0.1);">HOS</div>
-                <p style="margin-top: 10px; font-size: 0.85rem;">Náhled projektu HOS Autoservis</p>
+                <div style="font-size: 3.5rem; font-weight: 900; opacity: 0.1;">HOS</div>
+                <p style="margin-top: 10px; font-size: 0.85rem; font-weight: 600;">Náhled projektu HOS Autoservis</p>
             </div>
         </div>
     </section>
 
     <!-- SEKCE KONTAKT -->
-    <section id="kontakt" style="background: rgba(10, 10, 10, 0.5);">
-        <div class="section-header reveal-item">
-            <h2 class="section-title">Nastartujme vaši <span class="text-gradient">online přítomnost</span></h2>
-            <p class="section-subtitle">Napište mi, co máte v plánu. Rád s vámi projdu technické detaily i realizaci.</p>
-        </div>
+    <div class="contact-wrapper">
+        <section id="kontakt">
+            <div class="section-header reveal-item">
+                <h2 class="section-title">Nastartujme vaši <span class="text-gradient">online přítomnost</span></h2>
+                <p class="section-subtitle">Napište mi, co máte v plánu. Rád s vámi projdu technické detaily i realizaci.</p>
+            </div>
 
-        <div class="contact-grid">
-            <!-- FORMULÁŘ -->
-            <div class="form-card reveal-item">
-                <form action="#" method="POST">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Vaše Jméno / Společnost *</label>
-                            <input type="text" placeholder="Jan Novák" required>
+            <div class="contact-grid">
+                <!-- FORMULÁŘ -->
+                <div class="form-card reveal-item">
+                    <form action="#" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Vaše Jméno / Společnost *</label>
+                                <input type="text" placeholder="Jan Novák" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Kontaktní e-mail *</label>
+                                <input type="email" placeholder="novak@firma.cz" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Kontaktní e-mail *</label>
-                            <input type="email" placeholder="novak@firma.cz" required>
-                        </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Telefonní číslo *</label>
-                            <input type="tel" placeholder="+420 700 000 000" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Telefonní číslo *</label>
+                                <input type="tel" placeholder="+420 700 000 000" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Co budeme tvořit? *</label>
+                                <select required>
+                                    <option value="" disabled selected>Vyberte možnost...</option>
+                                    <option value="novy-web">Zcela nový web</option>
+                                    <option value="redesign">Překopání starého webu</option>
+                                    <option value="analytika">Nastavení analytiky</option>
+                                </select>
+                            </div>
                         </div>
+
                         <div class="form-group">
-                            <label>Co budeme tvořit? *</label>
-                            <select required>
-                                <option value="" disabled selected>Vyberte možnost...</option>
-                                <option value="novy-web">Zcela nový web</option>
-                                <option value="redesign">Překopání starého webu</option>
-                                <option value="analytika">Nastavení analytiky</option>
+                            <label>Odhadovaný rozpočet</label>
+                            <select>
+                                <option value="" disabled selected>Vyberte hrubý rámec...</option>
+                                <option value="10-20">10 000 Kč – 20 000 Kč</option>
+                                <option value="20-40">20 000 Kč – 40 000 Kč</option>
+                                <option value="40+">40 000 Kč a více</option>
                             </select>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label>Odhadovaný rozpočet</label>
-                        <select>
-                            <option value="" disabled selected>Vyberte hrubý rámec...</option>
-                            <option value="10-20">10 000 Kč – 20 000 Kč</option>
-                            <option value="20-40">20 000 Kč – 40 000 Kč</option>
-                            <option value="40+">40 000 Kč a více</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label>O čem projekt bude? *</label>
+                            <textarea rows="4" placeholder="Potřebuji moderní vizitku pro svou firmu v Plzni. Mělo by to působit profesionálně..." required></textarea>
+                        </div>
 
-                    <div class="form-group">
-                        <label>O čem projekt bude? *</label>
-                        <textarea rows="4" placeholder="Potřebuji moderní vizitku pro svou firmu v Plzni. Mělo by to působit profesionálně..." required></textarea>
-                    </div>
-
-                    <button type="submit" class="btn" style="width: 100%;">Odeslat zprávu &rarr;</button>
-                </form>
-            </div>
-
-            <!-- POSTRANNÍ PANELY -->
-            <div class="contact-sidebar reveal-item delay-1">
-                <div class="info-card">
-                    <h4>Pojďme se spojit</h4>
-                    <a href="mailto:info@romanmudra.cz" class="contact-item">
-                        <span>📧</span> info@romanmudra.cz
-                    </a>
-                    <a href="tel:+420000000000" class="contact-item">
-                        <span>📞</span> +420 000 000 000
-                    </a>
+                        <button type="submit" class="btn" style="width: 100%;">Odeslat zprávu &rarr;</button>
+                    </form>
                 </div>
 
-                <div class="info-card">
-                    <h4>Základna v Plzni</h4>
-                    <p style="color: var(--text-muted); font-size: 0.9rem;">
-                        Působíte v <strong style="color: #fff;">Plzeňském kraji</strong>? Rád s vámi detaily proberu osobně u dobré kávy. Vývoj pro klienty ze zbytku ČR pak řeším efektivně online.
-                    </p>
+                <!-- POSTRANNÍ PANELY -->
+                <div class="contact-sidebar reveal-item delay-1">
+                    <div class="info-card">
+                        <h4>Pojďme se spojit</h4>
+                        <a href="mailto:info@romanmudra.cz" class="contact-item">
+                            <span style="font-size: 1.2rem;">📧</span> info@romanmudra.cz
+                        </a>
+                        <a href="tel:+420000000000" class="contact-item">
+                            <span style="font-size: 1.2rem;">📞</span> +420 000 000 000
+                        </a>
+                    </div>
+
+                    <div class="info-card">
+                        <h4>Základna v Plzni</h4>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; font-weight: 500;">
+                            Působíte v <strong class="highlight-text">Plzeňském kraji</strong>? Rád s vámi detaily proberu osobně u dobré kávy. Vývoj pro klienty ze zbytku ČR pak řeším efektivně online.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- NOVÁ MODERNÍ PATIČKA -->
     <footer>
         <div class="footer-top">
             <div class="footer-brand">
                 <h3>ROMAN <span class="text-gradient">MUDRA</span></h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 300px;">
+                <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 320px; font-weight: 500;">
                     Moderní webový vývoj s důrazem na čistý kód, rychlost a reálné výsledky.
                 </p>
             </div>
@@ -830,16 +970,47 @@
         <div class="footer-bottom">
             <div>&copy; 2026 Roman Mudra. Vyrobeno v Plzni.</div>
             <div>
-                IČO: Na vyžádání | <a href="mailto:info@romanmudra.cz" style="color: var(--accent-color); text-decoration: none;">info@romanmudra.cz</a>
+                IČO: Na vyžádání | <a href="mailto:info@romanmudra.cz" style="color: var(--accent-color); text-decoration: none; font-weight: 700;">info@romanmudra.cz</a>
             </div>
         </div>
     </footer>
 
-    <!-- SKRIPT PRO ANIMACE -->
+    <!-- SKRIPTY -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const reveals = document.querySelectorAll('.reveal-item');
+            
+            // 1. LOGIKA PRO PŘEPÍNÁNÍ TÉMATU (DARK / LIGHT MODE)
+            const toggleBtn = document.getElementById('theme-toggle');
+            const root = document.documentElement;
+            const moonIcon = document.getElementById('moon-icon');
+            const sunIcon = document.getElementById('sun-icon');
+            
+            // Kontrola uloženého tématu v prohlížeči (localStorage)
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if(savedTheme === 'light') {
+                root.setAttribute('data-theme', 'light');
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            }
+            
+            // Event listener pro kliknutí na tlačítko
+            toggleBtn.addEventListener('click', () => {
+                const currentTheme = root.getAttribute('data-theme');
+                if(currentTheme === 'dark') {
+                    root.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    moonIcon.style.display = 'none';
+                    sunIcon.style.display = 'block';
+                } else {
+                    root.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                }
+            });
 
+            // 2. LOGIKA PRO ANIMACE SCROLLOVÁNÍ (REVEAL)
+            const reveals = document.querySelectorAll('.reveal-item');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
